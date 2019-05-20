@@ -5,7 +5,7 @@
 		"codeigniter",
 		"codeigniter4",
 		"reports",
-		"reporting",
+		"reporting"
 	],
 	"homepage": "https://github.com/tattersoftware/codeigniter4-reports",
 	"license": "MIT",
