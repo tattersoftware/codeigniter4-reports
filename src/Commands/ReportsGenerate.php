@@ -54,11 +54,12 @@ class ReportsGenerate extends BaseCommand
 				endif;
 				
 				// run it
+				CLI::write("Checking {$name} for new content...");
 				$result = $instance->generate();
 				
 				// write out any messages
 				foreach ($instance->getMessages() as $message):
-					CLI::write("{$name}: {$message}");
+					CLI::write($message);
 				endforeach;
 				
 				$flag = true;
