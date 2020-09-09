@@ -4,19 +4,42 @@ use CodeIgniter\Database\ConnectionInterface;
 
 interface ReportInterface
 {
-	// constructor with option DB connection injection
+	/**
+	 * Initializes the database.
+	 *
+	 * @param ConnectionInterface|null $db
+	 */
 	public function __construct(ConnectionInterface &$db = null);
-	
-	// fetches and organizes report results based on supplied parameters
+
+	/**
+	 * Fetches and organizes report results based on supplied parameters.
+	 *
+	 * @param array<string, mixed>|null $criteria  Criteria to pass to the Builder
+	 * @param array<string>|null $groups           Fields to group by
+	 * @param string|null $order                   Order for results
+	 *
+	 * @return array
+	 */
 	public function get(array $criteria = null, array $groups = null, string $order = null): array;
-	
-	// tests all expected report criteria
-	// calls run() and saves results for any missing content
+
+	/**
+	 * Tests all expected report criteria. Calls run() and saves results for any missing content.
+	 */
 	public function generate();
-    
-    // calculates content for a specific missing set of criteria
+
+	/**
+	 * Calculates content for a specific missing set of criteria.
+	 *
+	 * @param mixed ...$params
+	 *
+	 * @return mixed
+	 */
 	public function run(...$params);
-	
-	// access messages stored during report generation
+
+	/**
+	 * Returns any messages.
+	 *
+	 * @return array
+	 */
 	public function getMessages(): array;
 }

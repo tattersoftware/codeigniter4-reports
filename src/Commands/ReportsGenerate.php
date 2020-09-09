@@ -3,72 +3,49 @@
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
 use Config\Services;
+use Tatter\Handlers\Handlers;
+use Tatter\Reports\Interfaces\ReportInterface;
 
 class ReportsGenerate extends BaseCommand
 {
     protected $group       = 'Reports';
     protected $name        = 'reports:generate';
     protected $description = 'Generate missing report contents for all detected reports';
-    
-	protected $usage     = 'reports:generate';
-	protected $arguments = [ ];
+	protected $usage       = 'reports:generate';
 
 	public function run(array $params = [])
     {
-		$locator = Services::locator(true);
+		// Locate all Report handlers
+		$classes = (new Handlers('Reports'))->all();
 
-		// get all namespaces from the autoloader
-		$namespaces = Services::autoloader()->getNamespace();
-		
-		// scan each namespace for reports
+		// Get each handler and generate the report
 		$flag = false;
-		foreach ($namespaces as $namespace => $paths):
+		foreach ($classes as $class)
+		{
+			$handler = new $class();
 
-			// get any files in /Reports/ for this namespace
-			$files = $locator->listNamespaceFiles($namespace, '/Reports/');
-			foreach ($files as $file):
-			
-				// skip non-PHP files
-				if (substr($file, -4) !== '.php'):
-					continue;
-				endif;
-				
-				// get namespaced class name
-				$name = basename($file, '.php');
-				$class = $namespace . '\Reports\\' . $name;
-				
-				include_once $file;
+			if (! $handler instanceof ReportInterface)
+			{
+				continue;
+			}
 
-				// validate the class
-				if (! class_exists($class, false)):
-					throw new \RuntimeException("Could not locate {$class} in {$file}");
-				endif;
-				$instance = new $class();
-				
-				// validate necessary methods
-				if (! is_callable([$instance, 'generate'])):
-					throw new \RuntimeException("Missing 'generate' method for {$class} in {$file}");
-				endif;
-				if (! is_callable([$instance, 'getMessages'])):
-					throw new \RuntimeException("Missing 'getMessages' method for {$class} in {$file}");
-				endif;
-				
-				// run it
-				CLI::write("Checking {$name} for new content...");
-				$result = $instance->generate();
-				
-				// write out any messages
-				foreach ($instance->getMessages() as $message):
-					CLI::write($message);
-				endforeach;
-				
-				$flag = true;
-			endforeach;
-		endforeach;
-		
-		if ($flag == false):
-			CLI::write('No reports found in any namespace.', 'yellow');
-			return;
-		endif;
+			// Generate the data
+			CLI::write("Checking {$handler->name} for new content..."); //@phpstan-ignore-line
+			$result = $handler->generate();
+
+			// Write out any messages
+			foreach ($handler->getMessages() as $message)
+			{
+				CLI::write($message);
+			}
+
+			$flag = true;
+		}
+
+		if ($flag === false)
+		{
+			CLI::write('No reports found.', 'yellow');
+			return;			
+		}
 	}
 }
