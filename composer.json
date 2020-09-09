@@ -17,18 +17,36 @@
 			"role": "Developer"
 		}
 	],
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/codeigniter4/CodeIgniter4"
+		}
+	],
+	"minimum-stability": "dev",
+	"prefer-stable": true,
 	"require": {
-		"php" : "^7.0"
+		"php" : ">=7.2"
 	},
 	"require-dev": {
-		"codeigniter4/framework": "dev-master"
+		"phpunit/phpunit": "^8.5",
+		"fzaninotto/faker": "^1.9@dev",
+		"codeigniter4/codeigniter4": "dev-develop",
+		"phpstan/phpstan": "^0.12"
 	},
 	"autoload": {
 		"psr-4": {
 			"Tatter\\Reports\\": "src"
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tests\\Support\\": "tests/_support"
+		}
+	},
 	"scripts": {
+		"analyze": "phpstan analyze",
+		"test": "phpunit",
 		"post-update-cmd": [
 			"composer dump-autoload"
 		]
