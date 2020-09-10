@@ -49,7 +49,7 @@ abstract class BaseReport extends BaseHandler
 	 */
 	public function __construct(ConnectionInterface &$db = null)
 	{
-		if (! $this->attributes['table'])
+		if (empty($this->attributes['table']))
 		{
 			throw new \RuntimeException('You must set the report $table property!');
 		}

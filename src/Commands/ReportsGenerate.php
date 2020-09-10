@@ -42,7 +42,7 @@ class ReportsGenerate extends BaseCommand
 			$flag = true;
 		}
 
-		if ($flag === false)
+		if (! $flag)
 		{
 			CLI::write('No reports found.', 'yellow');
 			return;			
