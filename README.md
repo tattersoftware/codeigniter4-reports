@@ -25,17 +25,17 @@ Or, install manually by downloading the source files and adding the directory to
 
 Once the library is included all the resources are ready to go and you are ready to start
 making your report classes. Reports are detected across any namespace so can come from
-your `App\Reports` directory or any module or addin. See `ReportInterface` for requirements
-when writing a report class.
+your `App\Reports` namespace or any module under **Reports**. See `ReportInterface` for
+requirements when writing a report class.
 
 ## Generate results
 
-Once all the reports are setup use the command-line interface to generate report results:
+Once all the report classes are written, use the command-line interface to generate report results:
 
 `> php spark reports:generate`
 
 Each report class handles checking for missing report values so this command can be run
-routinely (e.g. by regular cron).
+routinely (e.g. by a daily cron).
 
 ## Access results
 
@@ -43,12 +43,11 @@ Load the report class of choice and then pull whatever contents you need using i
 method. Called without parameters `get()` will return all contents straight from the
 database. Optionally you may specify criteria to the database query, e.g.:
 ```
-$criteria = [
-	'user_id' => 56,
+$results = $reports->get([
+	'user_id'       => 56,
 	'created_at >=' => '2019-03-01',
-];
-$results = $reports->get($criteria);
+]);
 ```
 
-Other options for `get()` are recursive result grouping (e.g.
-`$results[user_id][date] => contents`) and ordering.
+Other parameters to `get()` allow recursive result grouping (e.g.
+`$results[user_id][date] => contents`) and ordering of returned content.
