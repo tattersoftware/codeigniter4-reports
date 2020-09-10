@@ -36,6 +36,7 @@ class CommandTest extends ReportsTestCase
 	{
 		command('reports:generate');
 
-		$this->assertStringContainsString('No paths are set for automatic discovery', $this->getBuffer());
+		$this->assertStringContainsString('Checking Money Report for new content', $this->getBuffer());
+		$this->assertStringContainsString('New report saved: ' . date('Y-m-d'), $this->getBuffer());
 	}
 }

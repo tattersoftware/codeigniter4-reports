@@ -49,7 +49,7 @@ class MoneyReport extends BaseReport implements ReportInterface
 				$this->messages[] = "New report saved: {$current}... {$content}";
 			}
 
-			$current = date('Y-m-01', strtotime('+1 day', strtotime($current)));
+			$current = date('Y-m-d', strtotime('+1 day', strtotime($current)));
 		}
 	}
 
