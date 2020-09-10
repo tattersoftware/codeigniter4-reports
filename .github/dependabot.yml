@@ -6,8 +6,8 @@ updates:
     interval: daily
   open-pull-requests-limit: 10
 
+# Check for updates to GitHub Actions every weekday
 - package-ecosystem: "github-actions"
   directory: "/"
   schedule:
-    # Check for updates to GitHub Actions every weekday
-    interval: "daily"
+    interval: daily

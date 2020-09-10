@@ -8,7 +8,7 @@ use Tatter\Reports\Interfaces\ReportInterface;
 
 class ReportsGenerate extends BaseCommand
 {
-	protected $group       = 'Reports';
+	protected $group       = 'Tasks';
 	protected $name        = 'reports:generate';
 	protected $description = 'Generate missing report contents for all detected reports';
 	protected $usage       = 'reports:generate';
