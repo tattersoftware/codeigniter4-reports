@@ -62,9 +62,9 @@ abstract class BaseReport extends BaseHandler
 	/**
 	 * Fetches and organizes report results based on supplied parameters.
 	 *
-	 * @param array<string, mixed>|null $criteria  Criteria to pass to the Builder
-	 * @param array<string>|null $groups           Fields to group by
-	 * @param string|null $order                   Order for results
+	 * @param array<string, mixed>|null $criteria Criteria to pass to the Builder
+	 * @param array<string>|null        $groups   Fields to group by
+	 * @param string|null               $order    Order for results
 	 *
 	 * @return array
 	 */
@@ -72,31 +72,31 @@ abstract class BaseReport extends BaseHandler
 	{
 		// Start the query
 		$query = $this->builder;
-		
+
 		// Check for criteria
 		if (! empty($criteria))
 		{
 			$query->where($criteria);
 		}
-			
+
 		// Check for an order request, e.g. 'title DESC, name ASC'
 		if (! empty($order))
 		{
 			$query->orderBy($order);
 		}
-		
+
 		// Fetch the results
 		$rows = $query->get()->getResultArray();
-		
+
 		// If no grouping was requested then return raw arrays
 		if (empty($groups))
 		{
 			return $rows;
 		}
-		
+
 		// Get the field to be the value
 		$valkey = array_pop($groups);
-		
+
 		// Group by requested fields - last field becomes key, use ID for "generic"
 		// https://stackoverflow.com/questions/3387472/string-to-variable-depth-multidimensional-array
 		$results = [];
@@ -120,7 +120,7 @@ abstract class BaseReport extends BaseHandler
 				// Move the pointer deeper
 				$ptr = &$ptr[$key];
 			}
-			
+
 			/* Pointer is now at the bottom */
 
 			// If it is a new key then set a flat value
@@ -138,10 +138,13 @@ abstract class BaseReport extends BaseHandler
 			// If it was a flat value, turn it into an array and add the new value
 			else // @phpstan-ignore-line
 			{
-				$ptr = [$ptr, $row[$valkey]];
+				$ptr = [
+					$ptr,
+					$row[$valkey],
+				];
 			}
 		}
-		
+
 		return $results;
 	}
 

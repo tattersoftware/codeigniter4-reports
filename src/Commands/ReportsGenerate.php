@@ -8,13 +8,13 @@ use Tatter\Reports\Interfaces\ReportInterface;
 
 class ReportsGenerate extends BaseCommand
 {
-    protected $group       = 'Reports';
-    protected $name        = 'reports:generate';
-    protected $description = 'Generate missing report contents for all detected reports';
+	protected $group       = 'Reports';
+	protected $name        = 'reports:generate';
+	protected $description = 'Generate missing report contents for all detected reports';
 	protected $usage       = 'reports:generate';
 
 	public function run(array $params = [])
-    {
+	{
 		// Locate all Report handlers
 		$classes = (new Handlers('Reports'))->all();
 
@@ -45,7 +45,7 @@ class ReportsGenerate extends BaseCommand
 		if (! $flag)
 		{
 			CLI::write('No reports found.', 'yellow');
-			return;			
+			return;
 		}
 	}
 }

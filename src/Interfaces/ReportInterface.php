@@ -14,9 +14,9 @@ interface ReportInterface
 	/**
 	 * Fetches and organizes report results based on supplied parameters.
 	 *
-	 * @param array<string, mixed>|null $criteria  Criteria to pass to the Builder
-	 * @param array<string>|null $groups           Fields to group by
-	 * @param string|null $order                   Order for results
+	 * @param array<string, mixed>|null $criteria Criteria to pass to the Builder
+	 * @param array<string>|null        $groups   Fields to group by
+	 * @param string|null               $order    Order for results
 	 *
 	 * @return array
 	 */
