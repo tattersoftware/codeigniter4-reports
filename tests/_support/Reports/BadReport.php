@@ -15,6 +15,8 @@ class BadFactory
 
 	/**
 	 * Tests all expected report criteria. Calls run() and saves results for any missing content.
+	 *
+	 * @return void
 	 */
 	public function generate()
 	{

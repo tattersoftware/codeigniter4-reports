@@ -18,9 +18,11 @@ class MoneyReport extends BaseReport implements ReportInterface
 
 	/**
 	 * Tests all expected report criteria. Calls run() and saves results for any missing content.
+	 *
+	 * @return void
 	 */
 	public function generate()
-	{		
+	{
 		// Days to process
 		$start = date('Y-m-d', strtotime('-2 days'));
 		$end   = date('Y-m-d');
@@ -44,9 +46,9 @@ class MoneyReport extends BaseReport implements ReportInterface
 					'created_at' => date('Y-m-d H:i:s'),
 				];
 				$this->builder->insert($row);
-					
+
 				// Add a message
-				$this->messages[] = "New report saved: {$current}... {$content}";
+				$this->messages[] = 'New report saved: ' . $current . '... ' . $content;
 			}
 
 			$current = date('Y-m-d', strtotime('+1 day', strtotime($current)));
@@ -58,7 +60,7 @@ class MoneyReport extends BaseReport implements ReportInterface
 	 *
 	 * @param mixed ...$params
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	public function run(...$params)
 	{

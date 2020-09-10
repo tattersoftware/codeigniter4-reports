@@ -24,15 +24,17 @@ interface ReportInterface
 
 	/**
 	 * Tests all expected report criteria. Calls run() and saves results for any missing content.
+	 *
+	 * @return void
 	 */
 	public function generate();
 
 	/**
 	 * Calculates content for a specific missing set of criteria.
 	 *
-	 * @param mixed ...$params
+	 * @param mixed ...$params  Parameters specific to this report.
 	 *
-	 * @return mixed
+	 * @return mixed  Result for a single set of report parameters.
 	 */
 	public function run(...$params);
 

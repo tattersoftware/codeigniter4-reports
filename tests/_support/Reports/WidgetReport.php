@@ -18,6 +18,8 @@ class WidgetReport extends BaseReport implements ReportInterface
 
 	/**
 	 * Tests all expected report criteria. Calls run() and saves results for any missing content.
+	 *
+	 * @return void
 	 */
 	public function generate()
 	{
@@ -40,7 +42,7 @@ class WidgetReport extends BaseReport implements ReportInterface
 	 *
 	 * @param mixed ...$params
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	public function run(...$params)
 	{

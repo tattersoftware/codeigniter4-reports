@@ -30,8 +30,8 @@ class ReportsGenerate extends BaseCommand
 			}
 
 			// Generate the data
-			CLI::write("Checking {$handler->name} for new content..."); //@phpstan-ignore-line
-			$result = $handler->generate();
+			CLI::write('Checking ' . $handler->name . ' for new content...'); //@phpstan-ignore-line
+			$handler->generate();
 
 			// Write out any messages
 			foreach ($handler->getMessages() as $message)
@@ -45,7 +45,7 @@ class ReportsGenerate extends BaseCommand
 		if (! $flag)
 		{
 			CLI::write('No reports found.', 'yellow');
-			return;
+			return;			
 		}
 	}
 }

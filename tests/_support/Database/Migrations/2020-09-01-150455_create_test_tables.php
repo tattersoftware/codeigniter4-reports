@@ -11,7 +11,10 @@ class CreateTestTables extends Migration
 		$this->forge->addField([
 			'day'        => ['type' => 'date'],
 			'amount'     => ['type' => 'int'],
-			'created_at' => ['type' => 'datetime', 'null' => true],
+			'created_at' => [
+				'type' => 'datetime',
+				'null' => true,
+			],
 		]);
 		$this->forge->createTable('finances');
 
@@ -20,7 +23,10 @@ class CreateTestTables extends Migration
 		$this->forge->addField([
 			'index'      => ['type' => 'date'],
 			'total'      => ['type' => 'int'],
-			'created_at' => ['type' => 'datetime', 'null' => true],
+			'created_at' => [
+				'type' => 'datetime',
+				'null' => true,
+			],
 		]);
 		$this->forge->createTable('widget_reports');
 	}
