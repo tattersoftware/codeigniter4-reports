@@ -27,7 +27,7 @@
 	"prefer-stable": true,
 	"require": {
 		"php" : ">=7.2",
-		"tatter/handlers": "^2.0"
+		"tatter/handlers": "^3.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^8.5",
